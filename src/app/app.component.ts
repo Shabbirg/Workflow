@@ -111,7 +111,7 @@ export class AppComponent {
         val1: [''],
         val2: [''],
         val3: [''],
-        tempType: ['five1'],
+        tempType:[''],
         child: this.fb.array([])
       }))
 
