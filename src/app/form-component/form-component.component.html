@@ -1,0 +1,58 @@
+<div>
+  <span>-------------Form Component-------------</span>
+  <form [formGroup]="myGroup">
+    <div formArrayName="groups" class="mt-5 border p-5">
+      <div *ngFor="let grp of myGroup.get('groups').controls; let i=index">     
+        <!--<h3>Group {{i+1}}: </h3>-->
+        <div [formGroupName]="i">
+
+          <div class="row">
+            <!--<button (click)="addNewCondition(grp.controls.conditions)" class="btn btn-info ml-2">Add Condition</button>
+            <button (click)="deleteGroup(i)" class="btn btn-danger ml-2">Delete Group</button>-->
+            <div class="card">
+              <div class="card-header bg-primary text-white">
+                <img src="../assets/images/customer.jpg" height="25px" width="25px" class="rounded-circle align-self-start mr-3">
+                Demo Template
+              </div>
+              <div class="card-body">
+                <p>  dummy text lwerwsd d ldfodf fsdl sdfslkd fsdlfds kjsdf sdfjsldfsdoifjsdl sdfsd </p>
+              </div>
+            </div>
+            <input type="text" class="form-control mt-1" formControlName="val1" />
+            <input type="text" class="form-control mt-1" formControlName="val2" />
+            <input type="text" class="form-control mt-1" formControlName="val3" />
+            <input type="text" class="form-control mt-1" formControlName="tempType" />
+          </div>
+
+        </div>
+
+        <div class="text-center"><i class="fa fa-arrow-down" aria-hidden="true"></i></div>
+      </div>
+
+      <div class="row text-center">
+        <select class="form-control w-25  mx-1" (change)="selectedTemplate($event.target.value)">
+          <option selected="selected" value="one">Template 1</option>
+          <option value="two">Template 2</option>
+          <option value="three">Template 3</option>
+        </select>
+
+        <button (click)="addNewGroup()" class="btn btn-primary align-self-start">Add</button>
+      </div>
+
+    </div>
+
+
+  </form>
+
+
+
+
+
+
+
+</div>
+
+
+{{myGroup.value | json }}
+<!--<span>--------------</span>-->
+<!--{{myGroup.value.groups[0].tempType | json }}-->

@@ -1,75 +1,72 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-info">
-  <a class="navbar-brand" href="#">Workflow</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Link</a>
-      </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Dropdown
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="#">Action</a>
-          <a class="dropdown-item" href="#">Another action</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">Something else here</a>
-        </div>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-      </li>
-    </ul>
-    <form class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-    </form>
+<!--<button class="accordion">Section 1</button>
+<div class="panel">
+  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+</div>
+<button class="accordion">Section 2</button>
+<div class="panel">
+  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+</div>-->
+<!--<div *ngFor="let item of data; let i=index">
+  <button type="button" class="btn btn-info" data-toggle="collapse" [attr.data-target]="'#' + data.id">Simple collapsible</button>
+  <div id="'#'+data.id" name="demo" class="collapse">
+    Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+    sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
   </div>
-</nav>
+</div>-->
 
-
-
-<button type="button" class="btn btn-info" data-toggle="collapse"  data-target="#demo">Simple collapsible</button>
-<div name="demo" class="collapse">
+<button type="button" class="btn btn-info" data-toggle="collapse" data-target="#demo">Simple collapsible</button>
+<div id="demo" name="demo" class="collapse">
   Lorem ipsum dolor sit amet, consectetur adipisicing elit,
   sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
   quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
 </div>
 
 
-
-
 <div class="text-center my-5 font-weight-bold"><h3>Work Flow</h3></div>
 
-<div class="offset-md-3 col-md-6">
-
+<div class="offset-md-3 col-md-6 border border-rounded p-5">
 
 
   <div class="d-">
-    <div *ngFor="let item of data2; let i=index">
+
+    <!--<ngb-accordion #acc="ngbAccordion" activeIds="ngb-panel-0">
+          <ngb-panel title="sdfsda">
+            <ng-template ngbPanelContent>
+            </ng-template>
+          </ngb-panel>
+        </ngb-accordion>-->
+
+
+    <div *ngFor="let item of templates; let i=index">
       <ng-container [ngTemplateOutlet]="this[item]" [ngTemplateOutletContext]="{number:i}"></ng-container>
       <div class="text-center"><a (click)="insertTemplate(i,content)"><i class="fa fa-plus-circle" title="insert new template" aria-hidden="true"></i></a></div>
       <!--<div class="text-center "><i class="fa fa-arrow-down" aria-hidden="true"></i></div>-->
       <div class="text-center" style="position:relative"><img height="50" width="50" src="../assets/images/plus2.svg" /></div>
     </div>
 
-
-
     <div id="Templates">
       <ng-template #one let-Id='number'>
+
+        <!--<ngb-accordion #acc="ngbAccordion">
+          <ngb-panel>
+            <ng-template ngbPanelTitle>
+              <span>
+                <img src="../assets/images/customer.jpg" height="25px" width="25px" class="rounded-circle align-self-start mr-3">
+                Default Template
+                <a><i class="fa fa-trash text-white pull-right" aria-hidden="true" title="Remove" (click)="removeTemplate(Id)"></i></a>
+              </span>
+            </ng-template>
+          </ngb-panel>
+        </ngb-accordion>-->
+
         <div class="card">
           <div class="card-header bg-warning text-white">
             <img src="../assets/images/customer.jpg" height="25px" width="25px" class="rounded-circle align-self-start mr-3">
             Default Template
             <a><i class="fa fa-trash text-white pull-right" aria-hidden="true" title="Remove" (click)="removeTemplate(Id)"></i></a>
           </div>
+
           <div class="card-body">
             <p>This is the Defulat Template and it is dummy text lwerwsd d ldfodf fsdl sdfslkd fsdlfdskjsdf sdfjsldf sdoifjsdl sdfsd ksdjfdsfo dsfsdl  lsdlfwer llsdfosdf lsdlfk dfknewrl dsflkodkld</p>
           </div>
@@ -145,8 +142,9 @@
             <a><i class="fa fa-trash text-white pull-right" aria-hidden="true" title="Remove" (click)="removeTemplate(Id)"></i></a>
           </div>
           <div class="card-body">
-            <label class="">Selected Mobile Number</label>
-            <input type="text" class="form-control" readonly placeholder="9998887776" />
+            <!--<label class="">Selected Mobile Number</label>
+  <input type="text" class="form-control" readonly placeholder="8889997776" />-->
+            <app-form-component></app-form-component>
           </div>
         </div>
       </ng-template>
@@ -162,6 +160,7 @@
             <p>   fsdl sdfslkd fsdlfdskjsdf sdfjsldf sdoifjsdl sdfsd ksdjfdsfo dsfsdl  lsdlfwer llsdfosdf lsdlfk dfknewrl dsflkodkld</p>
           </div>
         </div>
+
       </ng-template>
 
       <ng-template #content let-modal>
@@ -174,26 +173,47 @@
         </div>
         <div class="modal-body">
           <div class="my-2">
-            <button class="btn btn-sm m-1 btn-outline-warning" type="button" (click)="selectedTemplate('one')">Demo</button>
-            <button class="btn btn-sm m-1 btn-outline-primary" type="button" (click)="selectedTemplate('two')">Send Mail </button>
-            <button class="btn btn-sm m-1 btn-outline-info" type="button" (click)="selectedTemplate('three')">Save to Database</button>
-            <button class="btn btn-sm m-1 btn-outline-success" type="button" (click)="selectedTemplate('four')">Download File  </button>
-            <button class="btn btn-sm m-1 btn-outline-danger" type="button" (click)="selectedTemplate('five')">Get Mobile Notification</button>
-            <button class="btn btn-sm m-1 btn-outline-dark" type="button" (click)="selectedTemplate('six')">Select Control</button>
+            <button class="btn btn-sm m-1 btn-outline-warning" type="button" (click)="selectedTemplate('one')"><i class="fa fa-television" aria-hidden="true"></i> Demo </button>
+            <button class="btn btn-sm m-1 btn-outline-primary" type="button" (click)="selectedTemplate('two')"><i class="fa fa-envelope" aria-hidden="true"></i> Send Mail </button>
+            <button class="btn btn-sm m-1 btn-outline-info" type="button" (click)="selectedTemplate('three')"><i class="fa fa-database" aria-hidden="true"></i> Save to Database</button>
+            <button class="btn btn-sm m-1 btn-outline-success" type="button" (click)="selectedTemplate('four')"><i class="fa fa-cloud-download" aria-hidden="true"></i> Download File  </button>
+            <button class="btn btn-sm m-1 btn-outline-danger" type="button" (click)="selectedTemplate('five')"><i class="fa fa-mobile" aria-hidden="true"></i> Get Mobile Notification</button>
+            <button class="btn btn-sm m-1 btn-outline-dark" type="button" (click)="selectedTemplate('six')"><i class="fa fa-tag" aria-hidden="true"></i> Select Control</button>
           </div>
         </div>
         <span *ngIf="templateType=='empty'" class="text-danger">*Please Select Template</span>
         <div class="text-center"><button class="btn btn-primary  mb-2" (click)="add()">Add</button></div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+          <button type="button" class="btn btn-warning" (click)="modal.close('Close click')">Close</button>
         </div>
       </ng-template>
     </div>
   </div>
 
   <div class="text-center"><button class="btn btn-outline-primary mt-2" (click)="openWindowCustomClass(content)">Add Template</button></div>
+  <div class="text-center"><button class="btn btn-outline-danger mt-2" (click)="reset()">Reset</button></div>
 
-  <div class="mt-5 d-n">
+  <div class="box-header with-border mt-5">
+    <div class="form-group voffset row">
+      <label for="" class="vertical-label col-sm-4 col-md-8 "> Select Component</label>
+      <div class="col-sm-8 col-md-4">
+        <select (change)="selectName($event.target.value);" class="form-control">
+          <option value="0">--Select--</option>
+          <option [value]="obj.Id" *ngFor="let obj of data">
+            {{obj.Name}}
+          </option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group voffset row">
+      <template #loadComponent>
+
+      </template>
+    </div>
+  </div>
+
+
+  <div class="mt-5 d-none">
     <form [formGroup]="myGroup">
       <div formArrayName="groups" class="mt-5 border p-5">
         <div *ngFor="let grp of myGroup.get('groups').controls; let i=index">
@@ -202,7 +222,7 @@
             <div *ngIf="i==0">
               <ng-container [ngTemplateOutlet]="five1"></ng-container>
             </div>
-           
+
             <div *ngIf="i==1">
               <ng-container [ngTemplateOutlet]="six1"></ng-container>
             </div>
@@ -273,112 +293,106 @@
 
 
 
-  <div class="p-4 d-none">
-    <form [formGroup]="myGroup">
-      <div formArrayName="groups" class="mt-5 border p-5">
-        <div *ngFor="let grp of myGroup.get('groups').controls; let i=index">
-          <!--<h3>Group {{i+1}}: </h3>-->
-          <div [formGroupName]="i">
 
-            <div class="row">
-              <!--<button (click)="addNewCondition(grp.controls.conditions)" class="btn btn-info ml-2">Add Condition</button>
-              <button (click)="deleteGroup(i)" class="btn btn-danger ml-2">Delete Group</button>-->
-              <div class="card">
-                <div class="card-header bg-primary text-white">
-                  <img src="../assets/images/customer.jpg" height="25px" width="25px" class="rounded-circle align-self-start mr-3">
-                  Demo Template
-                </div>
-                <div class="card-body">
-                  <p>  dummy text lwerwsd d ldfodf fsdl sdfslkd fsdlfds kjsdf sdfjsldfsdoifjsdl sdfsd </p>
-                </div>
-              </div>
-              <input type="text" class="form-control mt-1" formControlName="val1" />
-              <input type="text" class="form-control mt-1" formControlName="val2" />
-              <input type="text" class="form-control mt-1" formControlName="val3" />
-              <input type="text" class="form-control mt-1" formControlName="tempType" />
-            </div>
 
-          </div>
 
-          <div class="text-center"><i class="fa fa-arrow-down" aria-hidden="true"></i></div>
-        </div>
 
-        <div class="row text-center">
-          <select class="form-control w-25  mx-1" (change)="selectedTemplate($event.target.value)">
-            <option selected="selected" value="one">Template 1</option>
-            <option value="two">Template 2</option>
-            <option value="three">Template 3</option>
-          </select>
 
-          <button (click)="addNewGroup()" class="btn btn-primary align-self-start">Add</button>
-        </div>
 
-      </div>
-    </form>
+  <!--{{myGroup.value | json }}-->
+  <!--<span>--------------</span>-->
+  <!--{{myGroup.value.groups[0].tempType | json }}-->
+  <!--{{templates | json}}-->
 
+
+  <div class="tree d-none">
+    on
+    <ul>
+      on
+      <li>
+        <a href="#">
+          hr
+          Parent
+          li
+        </a>
+        >
+
+        hr
+        li
+        <ul>
+          hr
+          li
+
+
+          <li>
+
+
+            Ch
+            <a href="#">
+              f=
+              Child
+            </a>
+            f=
+            <ul>
+              <li>
+                <a href="#">Grand Child</a>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <a href="#">
+              Child
+            </a>
+            <ul>
+              <li>
+                <a href="#">Grand Child</a>
+
+
+              </li>
+
+
+            </ul>
+
+
+          </li>
+          i>
+
+
+          <li>
+            i>
+
+            <a href="#">Child</a>
+            <ul>
+              <li>
+                <a href="#">Grand sasadadsa</a>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <a href="#">Child</a>
+            <ul>
+              <li><a href="#">Grand Child1</a></li>
+              <li>
+                <a href="#">technovert</a>
+                <ul>
+                  <li>
+                    <a href="#">Great Grand TEstttt</a>
+                  </li>
+                  <li>
+                    >G
+                    <a href="#">>Great Grand Child</a>
+                  </li>
+                  <li>
+                    <a href="#">Great Grand Child</a>
+                  </li>
+                </ul>
+              </li>
+              <li><a href="#">Grand Child2</a></li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
   </div>
 
-  {{myGroup.value | json }}
-  <span>--------------</span>
-  <!--{{myGroup.value.groups[0].tempType | json }}-->
-  <!--{{data2 | json}}-->
 
-
-
-
-
-
-<div class="tree d-none">
-  <ul>
-    <li>
-      <a href="#">Parent</a>
-      <ul>
-        <li>
-          <a href="#">Child</a>
-          <ul>
-            <li>
-              <a href="#">Grand Child</a>
-            </li>
-          </ul>
-        </li>
-        <li>
-          <a href="#">Child</a>
-          <ul>
-            <li>
-              <a href="#">Grand Child</a>
-            </li>
-          </ul>
-        </li>
-        <li>
-          <a href="#">Child</a>
-          <ul>
-            <li>
-              <a href="#">Grand sasadadsa</a>
-            </li>
-          </ul>
-        </li>
-        <li>
-          <a href="#">Child</a>
-          <ul>
-            <li><a href="#">Grand Child</a></li>
-            <li>
-              <a href="#">Grand Child</a>
-              <ul>
-                <li>
-                  <a href="#">Great Grand Child</a>
-                </li>
-                <li>
-                  <a href="#">Great Grand Child</a>
-                </li>
-                <li>
-                  <a href="#">Great Grand Child</a>
-                </li>
-              </ul>
-            </li>
-            <li><a href="#">Grand Child</a></li>
-          </ul>
-        </li>
-      </ul>
-    </li>
-  </ul>
-</div>
