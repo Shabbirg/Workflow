@@ -12,6 +12,8 @@ export class AppComponent {
   templateType2: string = '';
   insertType: number = 1;
   currentIndex: number;
+  show: boolean = true;
+  temp: number = 1;
   constructor(private fb: FormBuilder, private modalService: NgbModal) {
     this.myGroup = this.fb.group({
       groups: this.fb.array([]),
@@ -19,26 +21,26 @@ export class AppComponent {
   }
 
   viewchildload() {
-
     for (var i = 0; i < this.data.length; i++) {
       //@ViewChild(this.numbers[i]);
       //@ViewChildren(QuestionComponent) questions: QueryList<QuestionComponent>;
     }
-
   }
-  @ViewChild('one') one: TemplateRef<any>;
-  @ViewChild('two') two: TemplateRef<any>;
-  @ViewChild('three') three: TemplateRef<any>;
-  @ViewChild('four') four: TemplateRef<any>;
-  @ViewChild('five') five: TemplateRef<any>;
-  @ViewChild('six') six: TemplateRef<any>;
-  @ViewChild('five1') five1: TemplateRef<any>;
-  @ViewChild('six1') six1: TemplateRef<any>;
+  @ViewChild('one', { static: true }) one: TemplateRef<any>;
+  @ViewChild('two', { static: true }) two: TemplateRef<any>;
+  @ViewChild('three', { static: true }) three: TemplateRef<any>;
+  @ViewChild('four', { static: true }) four: TemplateRef<any>;
+  @ViewChild('five', { static: true }) five: TemplateRef<any>;
+  @ViewChild('six', { static: true }) six: TemplateRef<any>;
+  @ViewChild('five1', { static: true }) five1: TemplateRef<any>;
+  @ViewChild('six1', { static: true }) six1: TemplateRef<any>;
   //config = {
   //  one: true,
   //  two: true,
   //}
   //conf = [{"one":true}, {"two":true}, {"three":true}]
+  tempArray: any[] =[
+  ];
 
   add() {
     if (this.templateType == '') {    //Not Selected
@@ -46,8 +48,13 @@ export class AppComponent {
       return false;
     }
     else if (this.templateType != 'empty') {
-      if (this.insertType == 1) {     //Adding New Template
+      if (this.insertType == 1 && this.temp==1) {     //Adding New Template
         this.data2.push(this.templateType)
+        this.templateType = '';
+        this.modalService.dismissAll();
+      }
+      else if (this.insertType == 1 && this.temp == 0) {     //Adding New Template
+        this.tempArray.push(this.templateType)
         this.templateType = '';
         this.modalService.dismissAll();
       }
@@ -59,12 +66,16 @@ export class AppComponent {
       }
     }
   }
+  toggle() {
+    this.show = !this.show;
+  }
 
-  insertTemplate(value, content) {
+  insertTemplate(value, content,temp) {
+    this.temp =temp;
+    this.show = !this.show;
     this.insertType = 2;
     this.currentIndex = value;
     this.modalService.open(content, { windowClass: 'dark-modal' });
-
   }
 
   removeTemplate(val) {
@@ -72,6 +83,7 @@ export class AppComponent {
   }
 
   selectedTemplate(value) {
+    
     this.templateType = value;
   }
 
@@ -114,7 +126,6 @@ export class AppComponent {
         tempType:[''],
         child: this.fb.array([])
       }))
-
     console.log(control.value);
   }
 
