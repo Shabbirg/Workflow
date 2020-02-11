@@ -5,6 +5,7 @@ import { SendMailComponent } from './send-mail/send-mail.component';
 import { GetNotificationComponent} from './get-notification/get-notification.component';
 import { FormComponentComponent } from './form-component/form-component.component';
 import { TemplateInfo } from 'src/model/template-info';
+import { Template } from '@angular/compiler/src/render3/r3_ast';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -15,17 +16,24 @@ export class AppComponent {
   myGroup: FormGroup;
   listTemplates: TemplateInfo[]=[];
   Template: TemplateInfo;
+  isParallal: boolean;
   templateType: string = '';
   templateType2: string = '';
   insertType: number = 1;
   currentIndex: number;
+
   constructor(private fb: FormBuilder, private modalService: NgbModal, private resolver: ComponentFactoryResolver) {
     this.myGroup = this.fb.group({
       groups: this.fb.array([]),
     })
   } 
 
-
+  ngOnInit() {
+    let temp = new TemplateInfo();
+    temp.Name = 'one';
+    this.Template = temp;
+    this.listTemplates.push(this.Template)
+  }
   ///////////
   componentRef: any;
   @ViewChild('loadComponent', { read: ViewContainerRef }) entry: ViewContainerRef;
@@ -75,67 +83,67 @@ export class AppComponent {
   //conf = [{"one":true}, {"two":true}, {"three":true}]
 
 
-
-
-
+  selectedTemplate(value) {
+    this.templateType = value;
+  }
+  
   add() {
-    if (this.templateType == '') {    //Not Selected
-      this.templateType = 'empty';
+    this.modalService.dismissAll();
+    if (this.isParallal) {
+      let temp = new TemplateInfo();
+      temp.Stage = this.currentIndex+2;
+      temp.Name = this.templateType;
+      temp.isParallalTemp = true;
+      this.listTemplates.splice(this.currentIndex + 1, 0, temp);
+      this.isParallal = false;
       return false;
     }
-    else if (this.templateType != 'empty') {
-      if (this.insertType == 1) {     //Adding New Template
-        this.templates.push(this.templateType)
-        this.templateType = '';
-        this.modalService.dismissAll();
-      }
-      else {                          //Inserting Template
-        this.modalService.dismissAll();
-        this.templates.splice(this.currentIndex + 1, 0, this.templateType);
-        this.templateType = '';
-        this.modalService.dismissAll();
-      }
+    let temp = new TemplateInfo();
+    temp.Stage = this.listTemplates.length + 1;
+    temp.Name = this.templateType;
+    if (this.insertType == 1) {
+      this.listTemplates.push(temp);
     }
-  }
-
-  selectedTemplate2(val) {
-    let template = new TemplateInfo;
-    template.Name = val;
-    this.Template= template;
-    console.log(this.Template);
-  }
-
-  add2() {
-    this.listTemplates.push(this.Template);
-    console.log(this.listTemplates);
+    else {
+      this.listTemplates.splice(this.currentIndex + 1, 0, temp);
+      this.templateType = '';
+    }    
+   
   }
 
   insertTemplate(value, content) {
     this.insertType = 2;
     this.currentIndex = value;
     this.modalService.open(content, { windowClass: 'dark-modal' });
+  }
 
+  parallalTemplate(value, content) {
+    let template = new TemplateInfo;
+    template.OrderId = 1;
+    template.Stage = value;
+    this.Template = template;
+    this.isParallal = true;
+    //if (this.Template.OrderId > 0) {
+    //  template.OrderId = template.OrderId + 1;
+    //}
+
+   // this.listTemplates.push(this.Template);
+   // console.log(this.Template);
+    this.insertType = 2;
+    this.currentIndex = value;    
+    this.modalService.open(content, { windowClass: 'dark-modal' });
   }
 
   removeTemplate(val) {
-    this.templates.splice(val, 1);
+    this.listTemplates.splice(val, 1);
   }
 
   reset() {
-    this.templates =[];
+    this.listTemplates = [];
   }
-  selectedTemplate(value) {
-    this.templateType = value;
-  }
+
 
   objectKeys = Object.keys;
-
-
-
-  ngOnInit() {
-    // this.viewchildload();
-   //setTimeout(() => this.loadCollapse(), 100);
-  }
 
   loadCollapse() {
     var acc = document.getElementsByClassName("accordion");
@@ -155,7 +163,7 @@ export class AppComponent {
     }
   }
   templates: any[] = [
-    'one'
+    'one','two'
   ];
 
   openWindowCustomClass(content) {
@@ -166,15 +174,10 @@ export class AppComponent {
   obj: any[] = ['five', 'six'];
   dataa: any[] = ['one', 'two', 'three', 'four', 'five', 'six']
   test: any = this.loadCollapse();
-  templateType3: any[] = []
-  //templates = {
-  //  groups: [],
-  //}
+
 
   addNewGroup() {
-
     this.templateType2 = this.templateType;
-    this.templateType3.push(this.templateType)
     let control = <FormArray>this.myGroup.controls.groups;
     control.push(
       this.fb.group({

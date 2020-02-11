@@ -21,12 +21,8 @@ export class FormComponentComponent implements OnInit {
     })
   } 
 
-
-
   ngOnInit() {
   }
-
-
 
   addNewGroup() {
 
