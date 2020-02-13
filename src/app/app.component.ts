@@ -21,9 +21,8 @@ export class AppComponent {
   templateType2: string = '';
   insertType: number = 1;
   currentIndex: number;
-  show: boolean = true;
-  temp: number = 1;
- 
+  currentComponent: Component;
+  public message;
 
   constructor(private fb: FormBuilder, private modalService: NgbModal, private resolver: ComponentFactoryResolver) {
     this.myGroup = this.fb.group({
@@ -40,6 +39,9 @@ export class AppComponent {
   ///////////
   componentRef: any;
   @ViewChild('loadComponent', { read: ViewContainerRef }) entry: ViewContainerRef;
+  componentsArray: any = [SendMailComponent, GetNotificationComponent]
+  
+
 
   createComponent(Id: number) {
     this.entry.clear();
@@ -52,9 +54,18 @@ export class AppComponent {
     }
     this.componentRef.instance.message = "Called by appComponent";
   }
+
+  loadComponentTest() {
+    for (let i = 0; i < this.componentsArray.length; i++) {
+      const factory = this.resolver.resolveComponentFactory(this.componentsArray[i]);
+      this.componentRef = this.entry.createComponent(factory);
+    }
+  }
+
   destroyComponent() {
     this.componentRef.destroy();
   }
+
   data = [
     {
       "Id": 1,
@@ -68,32 +79,36 @@ export class AppComponent {
   selectName(id: number) {
     this.createComponent(id);
   }
+
   ///////////
 
-  @ViewChild('one') one: TemplateRef<any>;
-  @ViewChild('two') two: TemplateRef<any>;
-  @ViewChild('three') three: TemplateRef<any>;
-  @ViewChild('four') four: TemplateRef<any>;
-  @ViewChild('five') five: TemplateRef<any>;
-  @ViewChild('six') six: TemplateRef<any>;
-  @ViewChild('five1') five1: TemplateRef<any>;
-  @ViewChild('six1') six1: TemplateRef<any>;
+  @ViewChild('one', { static: false }) one: TemplateRef<any>;
+  @ViewChild('two', { static: false }) two: TemplateRef<any>;
+  @ViewChild('three', { static: false }) three: TemplateRef<any>;
+  @ViewChild('four', { static: false }) four: TemplateRef<any>;
+  @ViewChild('five', { static: false }) five: TemplateRef<any>;
+  @ViewChild('six', { static: false }) six: TemplateRef<any>;
+  @ViewChild('five1', { static: false }) five1: TemplateRef<any>;
+  @ViewChild('six1', { static: false }) six1: TemplateRef<any>;
 
   //config = {
   //  one: true,
   //  two: true,
   //}
   //conf = [{"one":true}, {"two":true}, {"three":true}]
-  tempArray: any[] =[
-  ];
 
 
   selectedTemplate(value) {
     this.templateType = value;
+    this.currentComponent = '';
+    if (value == 'two') {
+      this.currentComponent =  SendMailComponent;
+    }
   }
   
   add() {
     this.modalService.dismissAll();
+
     if (this.isParallal) {
       let temp = new TemplateInfo();
       temp.Stage = this.currentIndex+2;
@@ -103,32 +118,16 @@ export class AppComponent {
       this.isParallal = false;
       return false;
     }
-    else if (this.templateType != 'empty') {
-      if (this.insertType == 1 && this.temp==1) {     //Adding New Template
-        this.data2.push(this.templateType)
-        this.templateType = '';
-        this.modalService.dismissAll();
-      }
-      else if (this.insertType == 1 && this.temp == 0) {     //Adding New Template
-        this.tempArray.push(this.templateType)
-        this.templateType = '';
-        this.modalService.dismissAll();
-      }
-      else {                          //Inserting Template
-        this.modalService.dismissAll();
-        this.data2.splice(this.currentIndex + 1, 0, this.templateType);
-        this.templateType = '';
-        this.modalService.dismissAll();
-      }
-    }
-  }
-  toggle() {
-    this.show = !this.show;
+
     let temp = new TemplateInfo();
+
     temp.Stage = this.listTemplates.length + 1;
     temp.Name = this.templateType;
+    temp.Component = this.currentComponent;
+   
     if (this.insertType == 1) {
       this.listTemplates.push(temp);
+      console.log(temp);
     }
     else {
       this.listTemplates.splice(this.currentIndex + 1, 0, temp);
@@ -137,9 +136,7 @@ export class AppComponent {
    
   }
 
-  insertTemplate(value, content,temp) {
-    this.temp =temp;
-    this.show = !this.show;
+  insertTemplate(value, content) {
     this.insertType = 2;
     this.currentIndex = value;
     this.modalService.open(content, { windowClass: 'dark-modal' });
@@ -151,12 +148,6 @@ export class AppComponent {
     template.Stage = value;
     this.Template = template;
     this.isParallal = true;
-    //if (this.Template.OrderId > 0) {
-    //  template.OrderId = template.OrderId + 1;
-    //}
-
-   // this.listTemplates.push(this.Template);
-   // console.log(this.Template);
     this.insertType = 2;
     this.currentIndex = value;    
     this.modalService.open(content, { windowClass: 'dark-modal' });
@@ -166,14 +157,14 @@ export class AppComponent {
     this.listTemplates.splice(val, 1);
   }
 
-  selectedTemplate(value) {
-    
-    this.templateType = value;
   reset() {
     this.listTemplates = [];
   }
 
 
+  pushData(val,Id) {
+    console.log(val);
+  }
   objectKeys = Object.keys;
 
   loadCollapse() {
@@ -193,9 +184,7 @@ export class AppComponent {
       });
     }
   }
-  templates: any[] = [
-    'one','two'
-  ];
+
 
   openWindowCustomClass(content) {
     this.insertType = 1;
@@ -221,6 +210,9 @@ export class AppComponent {
     console.log(control.value);
   }
 
+  test1() {
+    console.log('test')
+  }
 
 }
 

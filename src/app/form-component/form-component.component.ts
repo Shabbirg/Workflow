@@ -24,6 +24,10 @@ export class FormComponentComponent implements OnInit {
   ngOnInit() {
   }
 
+  test1() {
+    console.log('Test');
+  }
+
   addNewGroup() {
 
     this.templateType2 = this.templateType;
