@@ -1,5 +1,5 @@
 <div>
-  <span>-------------Form Component-------------</span>
+
   <form [formGroup]="myGroup">
     <div formArrayName="groups" class="mt-5 border p-5">
       <div *ngFor="let grp of myGroup.get('groups').controls; let i=index">     
@@ -35,8 +35,10 @@
           <option value="two">Template 2</option>
           <option value="three">Template 3</option>
         </select>
-
-        <button (click)="addNewGroup()" class="btn btn-primary align-self-start">Add</button>
+        <input type="text" class="form-control mt-1" formControlName="val1" />
+        <input type="text" class="form-control mt-1" formControlName="val2" />
+        <button (click)="test1()" class="btn btn-primary align-self-start">Add</button>
+        <!--addNewGroup()-->
       </div>
 
     </div>
@@ -53,6 +55,5 @@
 </div>
 
 
-{{myGroup.value | json }}
 <!--<span>--------------</span>-->
 <!--{{myGroup.value.groups[0].tempType | json }}-->

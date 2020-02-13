@@ -2,30 +2,29 @@
 
 <div class="text-center my-5 font-weight-bold"><h3>Work Flow</h3></div>
 
+<!--<button class="btn btn-info" (click)="loadComponentTest()">test</button>-->
 <div class="offset-md-3 col-md-6 border border-rounded p-5">
 
+  <div class="">
 
-  <div class="d-">
-
-    <div *ngFor="let item of listTemplates; let i=index">
-
-
+    <div *ngFor="let item of listTemplates; let i=index" class="">
 
 
       <div *ngIf="!item.isParallalTemp && i>0">
-
         <div class="text-center"><a (click)="insertTemplate(i,content)"><i class="fa fa-plus-circle" title="insert new template" aria-hidden="true"></i></a></div>
-        <div class="text-center"><a class=" btn btn-info" (click)="parallalTemplate(i,content)">Add Parallal</a></div>
+        <div class="text-center"><a class=" btn btn-sm btn-info" (click)="parallalTemplate(i,content)">Add Parallal</a></div>
         <div class="text-center" style="position:relative"><img height="50" width="50" src="../assets/images/plus2.svg" /></div>
         <!--<div class="text-center "><i class="fa fa-arrow-down" aria-hidden="true"></i></div>-->
       </div>
+
       <ng-container [ngTemplateOutlet]="this[item.Name]" [ngTemplateOutletContext]="{number:i}"></ng-container>
 
+      {{item.Component}}
     </div>
 
     <div id="Templates">
-      <ng-template #one let-Id='number'>
 
+      <ng-template #one let-Id='number'>
         <div class="card">
           <div class="card-header bg-warning text-white">
             <img src="../assets/images/customer.jpg" height="25px" width="25px" class="rounded-circle align-self-start mr-3">
@@ -35,37 +34,13 @@
 
           <div class="card-body">
             <p>This is the Defulat Template and it is dummy text lwerwsd d ldfodf fsdl sdfslkd fsdlfdskjsdf sdfjsldf sdoifjsdl sdfsd ksdjfdsfo dsfsdl  lsdlfwer llsdfosdf lsdlfk dfknewrl dsflkodkld</p>
+            <p>This is the Defulat Template and it is dummy text lwerwsd d ldfodf fsdl sdfslkd fsdlfdskjsdf sdfjsldf sdoifjsdl sdfsd ksdjfdsfo dsfsdl  lsdlfwer llsdfosdf lsdlfk dfknewrl dsflkodkld</p>
           </div>
         </div>
       </ng-template>
 
       <ng-template #two let-Id='number'>
-        <div class="card">
-          <div class="card-header bg-primary text-white">
-            <img src="../assets/images/admin.png" height="25px" width="25px" class="rounded-circle align-self-start mr-3">
-            Send Email
-            <a><i class="fa fa-trash text-white pull-right" aria-hidden="true" title="Remove" (click)="removeTemplate(Id)"></i></a>
-          </div>
-          <div class="card-body">
-            <div class="row">
-              <label class="w-25">To:</label>
-              <input type="text" class="form-control w-50 ml-3" />
-            </div>
-            <div class="row my-1">
-              <label class="w-25">Subject:</label>
-              <input type="text" class="form-control w-50 ml-3" />
-            </div>
-            <div class="row">
-              <label class="w-25">Compose:</label>
-              <input type="text" class="form-control w-50 ml-3" />
-            </div>
-
-            <p class="mt-4">lwerwsd d ldfodf fsdl sdfslkd fsdlfdskjsdf sdfjssdlfk dfknewrl dsflkodkld</p>
-            <p>nd it is dummy text lwerwsd d ldfodf fsdl sdfslkd fsdlfdskjsdf sdfjsldf sdoifjsdl ssdl  lsdlfwer llsdfosdf lsdlfk dfknewrl dsflkodkld</p>
-            <p>werwsd d ldfodf fsdl sdfslkd fsdlfdsksdl  lsdlfwer llsdfosdf lsdlfk dfknewrl dsflkodkld</p>
-
-          </div>
-        </div>
+        <app-send-mail (mailChildEvent)="pushData($event,Id)"></app-send-mail>
       </ng-template>
 
       <ng-template #three let-Id='number'>
@@ -199,8 +174,7 @@
       </div>
     </div>
     <div class="form-group voffset row">
-      <template #loadComponent>
-
+      <template #loadComponent>        
       </template>
     </div>
   </div>
@@ -255,8 +229,7 @@
               </div>
 
               <div class="row">
-
-                <input type="text" class="form-control mt-1" formControlName="val1" />
+                <input type="text" class="form-control mt-1" formControlName="val1" /> 
                 <input type="text" class="form-control mt-1" formControlName="val2" />
                 <input type="text" class="form-control mt-1" formControlName="val3" />
                 <input type="text" class="form-control mt-1" formControlName="tempType" />
@@ -280,7 +253,6 @@
 
       </div>
     </form>
-
   </div>
 
 

@@ -1,3 +1,4 @@
+import { Component } from '@angular/core';
 
 export class TemplateInfo
 {
@@ -8,5 +9,9 @@ export class TemplateInfo
   public OrderId: number=0;
   public Stage: number=0;
   public TemplateType: string;
-  //public Template: TemplateInfo;
+
+  public Datafield1: string;
+  public Datafield2: string;
+  public Datafield3: string;
+  public Component: Component;
 }
