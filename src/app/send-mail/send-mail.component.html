@@ -2,28 +2,31 @@
 
 
 <div class="card">
-  <div class="card-header bg-primary text-white">
-    <img src="../assets/images/admin.png" height="25px" width="25px" class="rounded-circle align-self-start mr-3">
-    Send Email
-    <a><i class="fa fa-trash text-white pull-right" aria-hidden="true" title="Remove" (click)="removeTemplate(Id)"></i></a>
-  </div>
-  <div class="card-body">
-    <div class="row">
-      <label class="w-25">To:</label>
-      <input type="text" class="form-control w-50 ml-3" />
+  <form name="mailData" [formGroup]="mailData" (ngsubmit)="getData()">
+    <div class="card-header bg-primary text-white">
+      <img src="../assets/images/admin.png" height="25px" width="25px" class="rounded-circle align-self-start mr-3">
+      Send Email
+      <a><i class="fa fa-trash text-white pull-right" aria-hidden="true" title="Remove" (click)="removeTemplate(Id)"></i></a>
     </div>
-    <div class="row my-1">
-      <label class="w-25">Subject:</label>
-      <input type="text" class="form-control w-50 ml-3" />
-    </div>
-    <div class="row">
-      <label class="w-25">Compose:</label>
-      <input type="text" class="form-control w-50 ml-3" />
-    </div>
+    <div class="card-body">
+      <div class="row">
+        <label class="w-25">To:</label>
+        <input type="text" class="form-control w-50 ml-3" formControlName="To" />
+      </div>
+      <div class="row my-1">
+        <label class="w-25">Subject:</label>
+        <input type="text" class="form-control w-50 ml-3" formControlName="Subject" />
+      </div>
+      <div class="row">
+        <label class="w-25">Compose:</label>
+        <input type="text" class="form-control w-50 ml-3" formControlName="Compose" />
+      </div>
 
-    <p class="mt-4">lwerwsd d ldfodf fsdl sdfslkd fsdlfdskjsdf sdfjssdlfk dfknewrl dsflkodkld</p>
-    <p>nd it is dummy text lwerwsd d ldfodf fsdl sdfslkd fsdlfdskjsdf sdfjsldf sdoifjsdl ssdl  lsdlfwer llsdfosdf lsdlfk dfknewrl dsflkodkld</p>
-    <p>werwsd d ldfodf fsdl sdfslkd fsdlfdsksdl  lsdlfwer llsdfosdf lsdlfk dfknewrl dsflkodkld</p>
-
-  </div>
+      <button class="btn btn-info" (click)="sendData()">Send Mail</button>
+      <p class="mt-4">lwerwsd d ldfodf fsdl sdfslkd fsdlfdskjsdf sdfjssdlfk dfknewrl dsflkodkld</p>
+      <p>nd it is dummy text lwerwsd d ldfodf fsdl sdfslkd fsdlfdskjsdf sdfjsldf sdoifjsdl ssdl  lsdlfwer llsdfosdf lsdlfk dfknewrl dsflkodkld</p>
+      <p>werwsd d ldfodf fsdl sdfslkd fsdlfdsksdl  lsdlfwer llsdfosdf lsdlfk dfknewrl dsflkodkld</p>
+    </div>
+  </form>
+  {{mailData.value | json}}
 </div>
